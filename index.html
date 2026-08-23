@@ -1,15 +1,69 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>David's Village</title><link rel="stylesheet" href="style.css"></head><body>
-<div class="bg"></div><header><div class="brand">DAVID'S VILLAGE <small>EST. 1989</small></div><nav><a href="#front-gates">Front Gates</a><a href="#library">Library</a></nav></header>
-<main><section id="front-gates" class="hero"><div class="panel"><div class="eyebrow">WELCOME</div><div class="lore">**Welcome to David’s Village!**
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>David's Village</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="snow"></div>
+<header>
+  <div class="brand">DAVID'S VILLAGE <span>EST. 1989</span></div>
+  <nav><button data-open="gates">Front Gates</button><button data-open="library">Library</button></nav>
+</header>
 
-In 1989, a being called David Satas built a village. It exists in a snow covered realm located in between the layers of our reality. The night there is eternal, and existential music plays very subtly in the atmosphere. It’s tundra like environment has snow that’s generally very warm and comforting. 
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">WELCOME</div>
+    <h1>David's Village</h1>
+    <p>A quiet village in an eternal winter night.</p>
+  </div>
+</section>
 
-The theme of the village’s architecture and ambience represents the best of these cultures: 
-- Classical European
-- Italian, Jewish, and African American
-- East Asian. 
-And on top of all that a consistent Christmas and Autumn aesthetic
+<section class="section-card" id="gates">
+  <div class="art gate-art">
+    <div class="moon"></div><div class="aurora"></div>
+    <div class="gate-building"><div class="snowcap"></div><div class="gate"></div></div>
+    <div class="guard"><div class="hood"></div><div class="head"></div><div class="coat"></div></div>
+    <div class="pines"></div>
+  </div>
+  <div class="section-info">
+    <div class="eyebrow">SECTION I</div><h2>Front Gates</h2>
+    <p>The entrance to David's Village.</p>
+    <button class="enter" data-modal="welcome">Enter</button>
+  </div>
+</section>
 
-The village was made as a safe place for all sentient beings to learn about David’s beliefs. Go explore the village and don’t forget to stop by the library to read his manifesto!</div></div></section>
-<section id="library" class="section"><div class="panel"><div class="eyebrow">THE LIBRARY</div><h1>David's Manifesto</h1><p>The village library houses David's writings. Download the complete book folder below.</p><a class="button" href="David's-Manifesto.zip" download>Download the Manifesto</a></div></section></main>
-<footer>David's Village · Est. 1989</footer><script src="main.js"></script></body></html>
+<section class="divider"><span>✦</span><i></i><span>✦</span></div></section>
+
+<section class="section-card reverse" id="library">
+  <div class="art library-art">
+    <div class="building">
+      <div class="roof"></div><div class="sign">LIBRARY</div>
+      <div class="windows"><span></span><span></span><span></span></div>
+      <div class="door"></div>
+      <div class="lights">• • • • • • •</div>
+    </div>
+    <div class="librarian"><div class="hair"></div><div class="face"></div><div class="body"></div></div>
+    <div class="pines"></div>
+  </div>
+  <div class="section-info">
+    <div class="eyebrow">SECTION II</div><h2>Library</h2>
+    <p>A warm, Christmas-themed library with a view through the windows.</p>
+    <button class="enter" data-modal="catalogue">Enter</button>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="welcome"><div class="scroll"><button class="close">×</button><h2>Welcome to David’s Village!</h2><div class="lore">
+<p>In 1989, a being called David Satas built a village. It exists in a snow covered realm located in between the layers of our reality. The night there is eternal, and existential music plays very subtly in the atmosphere. It’s tundra like environment has snow that’s generally very warm and comforting.</p>
+<p>The theme of the village’s architecture and ambience represents the best of these cultures:</p>
+<ul><li>Classical European</li><li>Italian, Jewish, and African American</li><li>East Asian.</li></ul>
+<p>And on top of all that a consistent Christmas and Autumn aesthetic</p>
+<p>The village was made as a safe place for all sentient beings to learn about David’s beliefs. Go explore the village and don’t forget to stop by the library to read his manifesto!</p>
+</div><div class="mini-guard"></div></div></div>
+
+<div class="modal" id="catalogue"><div class="scroll catalogue"><button class="close">×</button><div class="eyebrow">THE LIBRARY</div><h2>Catalogue</h2><div class="book"><span>David's Manifesto</span><a href="David's-Manifesto.zip" download>Read</a></div></div></div>
+<script src="main.js"></script>
+</body></html>
