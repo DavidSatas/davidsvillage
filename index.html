@@ -1,1 +1,84 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>David's Village</title><meta name="description" content="A village between the layers of reality, built by David Satas in 1989."><link rel="stylesheet" href="style.css"></head><body><div id="snow"></div><header><b>DAVID'S VILLAGE</b><nav><a href="#welcome">Welcome</a><a href="#village">Village</a><a href="#library">Library</a><a href="#chat">Village Chat</a></nav></header><main><section id="welcome" class="hero"><div class="aurora a1"></div><div class="aurora a2"></div><div class="pines">▲　▲　▲　▲　▲</div><div class="gate"><div class="arch">DAVID'S VILLAGE</div><i></i><i></i></div><article class="intro"><small>1989 · BETWEEN THE LAYERS OF REALITY</small><h1>Welcome to David's Village</h1><p>In 1989, a being called David Satas built a village in a snow-covered realm between the layers of our reality. The night is eternal, existential music hangs quietly in the air, and the snow is generally warm and comforting.</p><p>The village was made as a safe place for all sentient beings to learn about David's beliefs.</p><a class="btn" href="#village">Explore the village</a> <a class="btn ghost" href="#library">Visit the library</a></article></section><section id="village"><div class="heading"><small>THE VILLAGE</small><h2>A quiet place beneath an endless night.</h2><p>Old structures sit beside later additions, warm windows glow through snow, and a small population goes about its life.</p></div><div class="grid"><article class="building"><div class="roof"></div><div class="window"></div><div class="body"><em>📚</em><h3>The Library</h3><p>David's writings, manifesto, philosophy, and other works.</p><a href="#library">Enter →</a></div></article><article class="building shop"><div class="roof"></div><div class="window"></div><div class="body"><em>☕</em><h3>The Village Shop</h3><p>An old-fashioned shop with a warm window and slow music.</p></div></article><article class="building hall"><div class="roof"></div><div class="window"></div><div class="body"><em>💬</em><h3>Village Hall</h3><p>A place for visitors and residents to leave messages.</p><a href="#chat">Enter →</a></div></article><article class="building station"><div class="roof"></div><div class="window"></div><div class="body"><em>✦</em><h3>Village Station</h3><p>The local police station. Mostly quiet.</p></div></article></div><div class="population"><div><b>Residents</b><span>Shopkeepers · librarian · police · civilians</span></div><div><b>Beyond the village</b><span>Pines · tundra · northern lights · things worth finding</span></div><div><b>Vehicles</b><span>A few older cars from another era</span></div></div></section><section id="library" class="paper"><div class="heading"><small>THE LIBRARY</small><h2>Read what David left behind.</h2><p>The intellectual heart of the village. Your writings can become individual books and documents here.</p></div><div class="book"><div class="cover"><span>DAVID SATAS</span><strong>THE<br>MANIFESTO</strong><small>1989 · DAVID'S VILLAGE</small></div><div><small>FEATURED WORK</small><h3>David's Manifesto</h3><p>This is a placeholder for the manifesto. The real text can be added when you're ready.</p><button class="btn" id="open">Open reading room</button></div></div></section><section id="chat" class="chatsec"><div class="heading"><small>VILLAGE HALL</small><h2>Leave a message for the village.</h2><p>This first version demonstrates the interface. A real shared chat can be connected later.</p></div><div class="chat"><div id="messages"><div class="msg"><b>Librarian</b><span>Welcome to the village. Please be respectful.</span></div><div class="msg"><b>Shopkeeper</b><span>The snow is especially warm tonight.</span></div></div><form id="form"><input id="name" maxlength="24" placeholder="Your name" required><input id="text" maxlength="240" placeholder="Write a message..." required><button class="btn">Send</button></form></div></section></main><footer>DAVID'S VILLAGE · EST. 1989 <span>A safe place for sentient beings.</span></footer><div class="modal" id="modal"><div><button id="close">×</button><small>READING ROOM</small><h2>David's Manifesto</h2><p>The full manifesto will go here. We can later add chapters, search, bookmarks and downloadable files.</p></div></div><script src="man.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>David's Village</title>
+  <meta name="description" content="David's Village — a realm between the layers of reality.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="screen-filter" aria-hidden="true"></div>
+  <div class="snow" aria-hidden="true"></div>
+
+  <main class="arrival">
+    <div class="sky">
+      <div class="aurora aurora-a"></div>
+      <div class="aurora aurora-b"></div>
+      <div class="stars"></div>
+      <div class="moon"></div>
+    </div>
+
+    <div class="distant-hills" aria-hidden="true"></div>
+    <div class="tree-line" aria-hidden="true">
+      <span>▲</span><span>▲</span><span>▲</span><span>▲</span><span>▲</span><span>▲</span><span>▲</span>
+    </div>
+
+    <div class="ground" aria-hidden="true">
+      <div class="road"></div>
+      <div class="snow-bank bank-a"></div>
+      <div class="snow-bank bank-b"></div>
+    </div>
+
+    <section class="gate-scene" aria-label="Entrance to David's Village">
+      <div class="gate-shadow"></div>
+      <div class="gate-post post-left"></div>
+      <div class="gate-post post-right"></div>
+      <div class="gate-arch">
+        <div class="arch-sign">DAVID'S VILLAGE</div>
+        <div class="wreath wreath-left">✦</div>
+        <div class="wreath wreath-right">✦</div>
+      </div>
+      <div class="gate-lantern lantern-left"></div>
+      <div class="gate-lantern lantern-right"></div>
+      <div class="path-light"></div>
+    </section>
+
+    <header class="minimal-header">
+      <div class="brand">DAVID'S VILLAGE</div>
+      <div class="date">EST. 1989</div>
+    </header>
+
+    <section class="tour-guide">
+      <div class="guide-label">A GUIDE AWAITS YOU</div>
+      <h1>Welcome.</h1>
+      <p>
+        In 1989, a being called David Satas built a village in a snow-covered
+        realm located between the layers of our reality. The night here is eternal,
+        yet the snow is warm and comforting.
+      </p>
+      <p>
+        This village was made as a safe place for all sentient beings to learn
+        about David's beliefs. Take your time. There is no need to hurry.
+      </p>
+      <button class="enter-button" type="button" id="enterButton">Approach the village</button>
+      <div class="hint">The village is not open yet. This is the entrance.</div>
+    </section>
+  </main>
+
+  <div class="arrival-message" id="arrivalMessage" hidden>
+    <div class="message-card">
+      <button class="close" id="closeMessage" aria-label="Close">×</button>
+      <div class="guide-label">THE TOUR GUIDE</div>
+      <h2>Before you enter...</h2>
+      <p>
+        Beyond these gates is David's Village. For now, the rest of the village
+        remains undiscovered. We will build it together one place at a time.
+      </p>
+      <p class="quiet">Listen closely. You may hear the music.</p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
