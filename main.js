@@ -1,6 +1,1 @@
-const scene=document.getElementById('scene'),intro=document.getElementById('intro'),dialogue=document.getElementById('dialogue'),guard=document.getElementById('guard'),line=document.getElementById('line'),begin=document.getElementById('begin'),next=document.getElementById('next'),skip=document.getElementById('skip'),end=document.getElementById('end'),enter=document.getElementById('enter');
-const lines=["Evening. You're a long way from anywhere.","Don't worry. You're safe here.","David built this place for sentient beings who wanted somewhere quiet to learn, think, and stay awhile.","Come on. I'll open the gate for you."];let i=0;
-begin.onclick=()=>{intro.style.display='none';guard.classList.add('visible');setTimeout(()=>dialogue.classList.add('show'),900)};
-next.onclick=()=>{i++;if(i<lines.length)line.textContent=lines[i];else{dialogue.classList.remove('show');scene.classList.add('open');setTimeout(()=>end.classList.add('show'),2600)}};
-skip.onclick=()=>{intro.style.display='none';guard.classList.add('visible');setTimeout(()=>{scene.classList.add('open');setTimeout(()=>end.classList.add('show'),2600)},500)};
-enter.onclick=()=>{end.querySelector('h2').textContent='The village is still being built.';end.querySelector('p').textContent='This is the entrance for now. The buildings, residents, library, and discoveries will be added as the village takes shape.';enter.style.display='none'};
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll("nav a").forEach(a=>a.addEventListener("click",()=>window.scrollTo({behavior:"smooth"})));});
