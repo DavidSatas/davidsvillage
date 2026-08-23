@@ -1,43 +1,29 @@
-const canvas=document.getElementById('scene');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;
-const scene=new THREE.Scene();scene.background=new THREE.Color(0x14283a);scene.fog=new THREE.FogExp2(0x182d40,.018);
-const camera=new THREE.PerspectiveCamera(62,innerWidth/innerHeight,.1,500);camera.position.set(0,2.25,18);
-const moon=new THREE.DirectionalLight(0x9bb2c8,1.1);moon.position.set(-20,30,10);scene.add(moon);scene.add(new THREE.HemisphereLight(0x8da9bf,0x25352f,.65));
-const warm=new THREE.PointLight(0xffc66e,2.2,16);warm.position.set(0,5,-15);scene.add(warm);
-function mat(c){return new THREE.MeshStandardMaterial({color:c,roughness:.9})}
-const snowMat=mat(0xdce5e3),dark=mat(0x263d43),wood=mat(0x4b3b31),coat=mat(0x4a5660),skin=mat(0xc89b7b),gold=mat(0xd6b36a);
-const ground=new THREE.Mesh(new THREE.PlaneGeometry(180,180),snowMat);ground.rotation.x=-Math.PI/2;ground.position.y=-.02;ground.receiveShadow=true;scene.add(ground);
-// road
-const road=new THREE.Mesh(new THREE.PlaneGeometry(10,120),mat(0xaebcc0));road.rotation.x=-Math.PI/2;road.position.set(0,.01,0);scene.add(road);
-function tree(x,z,s=1){const g=new THREE.Group();const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.12*s,.18*s,1.3*s,6),wood);trunk.position.y=.65*s;g.add(trunk);for(let i=0;i<3;i++){const cone=new THREE.Mesh(new THREE.ConeGeometry((1.15-i*.22)*s,(2.3-i*.35)*s,8),dark);cone.position.y=(1.5+i*.72)*s;g.add(cone)}g.position.set(x,0,z);scene.add(g)}
-for(let i=0;i<45;i++){let x=(Math.random()-.5)*65; if(Math.abs(x)<7)x+=x<0?-9:9; let z=Math.random()*55-35;tree(x,z,.65+Math.random()*.8)}
+const canvas=document.getElementById('scene'),ctx=canvas.getContext('2d');let W,H,dpr;function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
+let start=performance.now(),skipped=false,dialogueShown=false,finished=false;const lines=["Evening. Welcome to David's Village.","Don't worry about the cold. The snow is warmer than it looks.","David built this place in 1989. You're safe here.","The village is just beyond these gates. Go explore when you're ready."];let li=0;
+const dialog=document.getElementById('dialogue'),line=document.getElementById('line');line.textContent=lines[0];
+document.getElementById('continue').onclick=()=>{if(li<lines.length-1){li++;line.textContent=lines[li]}else finish()};document.getElementById('skip').onclick=finish;
+function finish(){finished=true;dialog.classList.add('hidden')}
+const flakes=Array.from({length:180},()=>({x:Math.random(),y:Math.random(),s:.5+Math.random()*2,v:.15+Math.random()*.5}));
+function poly(points,fill,stroke){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
+function tree(x,y,s){ctx.fillStyle='#233c3a';poly([[x,y],[x-32*s,y+90*s],[x+32*s,y+90*s]],'#27413e');poly([[x,y+35*s],[x-25*s,y+105*s],[x+25*s,y+105*s]],'#213936');ctx.fillStyle='#4b4037';ctx.fillRect(x-4*s,y+95*s,8*s,32*s)}
+function draw(t){const elapsed=(t-start)/1000;ctx.clearRect(0,0,W,H);const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#182b40');sky.addColorStop(.58,'#263f52');sky.addColorStop(.59,'#9caeb0');sky.addColorStop(1,'#d6dfdb');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+// aurora
+ctx.save();ctx.globalAlpha=.16;ctx.strokeStyle='#88bca9';ctx.lineWidth=45;ctx.beginPath();ctx.moveTo(-80,130);for(let x=-80;x<W+100;x+=35)ctx.lineTo(x,130+Math.sin(x*.012+t*.0002)*35);ctx.stroke();ctx.restore();
+// distant hills
+poly([[0,H*.56],[W*.18,H*.43],[W*.34,H*.55],[W*.55,H*.4],[W*.76,H*.54],[W,H*.43],[W,H*.67],[0,H*.67]],'#526a77');poly([[0,H*.6],[W*.2,H*.5],[W*.4,H*.61],[W*.62,H*.49],[W*.8,H*.61],[W,H*.5],[W,H*.7],[0,H*.7]],'#70848b');
+// road perspective
+poly([[W*.42,H],[W*.58,H],[W*.535,H*.49],[W*.465,H*.49]],'#aeb9b8');
+// trees
+for(let i=0;i<22;i++){const x=(i%2?W*.08:W*.92)+(Math.sin(i*7)*W*.09);const y=H*.45+(i%6)*18;tree(x,y,0.55+(i%4)*.12)}
 // gate
-function box(w,h,d,m,x,y,z){const q=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);q.position.set(x,y,z);q.castShadow=true;scene.add(q);return q}
-box(1.4,8,1.4,wood,-6,4,-15);box(1.4,8,1.4,wood,6,4,-15);box(14,1.5,1.4,wood,0,8,-15);
-const sign=box(7,.85,.18,gold,0,7.15,-15.75);sign.rotation.y=Math.PI;
-// village silhouettes behind gate, deliberately indistinct
-for(let i=0;i<7;i++){const x=-11+i*3.6;const h=2.5+Math.random()*2.5;box(2.5,h,2,wood,x,h/2,-25-Math.random()*3);const roof=box(3.1,.45,2.5,dark,x,h+.25,-25-Math.random()*3);roof.rotation.z=(Math.random()-.5)*.08}
-// guard: puffy coat, hat, friendly face
-const guard=new THREE.Group();guard.position.set(0,0,-11.5);scene.add(guard);
-const legs=box(0.95,1.6,.65,dark,0,.8,0);legs.parent=guard;legs.position.set(0,.8,0);
-const body=new THREE.Mesh(new THREE.SphereGeometry(.8,16,12),coat);body.scale.set(.95,1.25,.65);body.position.y=2.05;guard.add(body);
-const head=new THREE.Mesh(new THREE.SphereGeometry(.43,16,12),skin);head.position.y=3.45;guard.add(head);
-const hat=new THREE.Mesh(new THREE.CylinderGeometry(.5,.62,.38,12),dark);hat.position.y=3.9;guard.add(hat);const brim=new THREE.Mesh(new THREE.CylinderGeometry(.7,.7,.08,12),dark);brim.position.y=3.72;guard.add(brim);
-const lantern=new THREE.PointLight(0xffc16b,1.5,7);lantern.position.set(.9,2.4,.5);guard.add(lantern);
-// aurora ribbons
-const auroraMat=new THREE.MeshBasicMaterial({color:0x79bba8,transparent:true,opacity:.16,side:THREE.DoubleSide});
-for(let j=0;j<3;j++){const pts=[];for(let i=0;i<18;i++)pts.push(new THREE.Vector3(-45+i*5,18+j*2+Math.sin(i*.7+j)*2, -38+i*.8));const geo=new THREE.BufferGeometry().setFromPoints(pts);const line=new THREE.Line(geo,auroraMat);scene.add(line)}
-// stars
-const stars=new THREE.BufferGeometry(),pos=[];for(let i=0;i<350;i++){pos.push((Math.random()-.5)*130,18+Math.random()*38,(Math.random()-.5)*90-15)}stars.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));scene.add(new THREE.Points(stars,new THREE.PointsMaterial({color:0xd8e4e6,size:.08})));
-// snow particles
-const sp=new THREE.BufferGeometry(),spos=[];for(let i=0;i<700;i++)spos.push((Math.random()-.5)*80,Math.random()*30,Math.random()*80-40);sp.setAttribute('position',new THREE.Float32BufferAttribute(spos,3));const snow=new THREE.Points(sp,new THREE.PointsMaterial({color:0xf3f7f5,size:.075,transparent:true,opacity:.65}));scene.add(snow);
-let elapsed=0,phase=0,done=false;const dialogue=document.getElementById('dialogue'),line=document.getElementById('line'),continueBtn=document.getElementById('continue');
-const lines=["Evening. Welcome to David's Village.","Don't worry about the cold. The snow is warmer than it looks.","David built this place in 1989. You're safe here.","The village is just beyond these gates. Go explore when you're ready."];
-function finish(){done=true;dialogue.classList.add('hidden');phase=4;camera.position.set(0,2.35,-7);}
-continueBtn.onclick=()=>{if(phase<3){phase++;line.textContent=lines[phase]}else{finish()}};document.getElementById('skip').onclick=finish;
-function resize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)}addEventListener('resize',resize);
-function animate(t){requestAnimationFrame(animate);const dt=.016;elapsed+=dt;snow.rotation.y+=dt*.01;snow.position.y-=dt*.45;if(snow.position.y<-1)snow.position.y=0;
-if(!done){if(elapsed<8){camera.position.z=18-elapsed*2.4;camera.position.x=Math.sin(elapsed*.18)*.8;camera.lookAt(0,2,-15)}else{camera.position.z=-7;camera.lookAt(0,2,-15);if(phase===0){phase=0;dialogue.classList.remove('hidden');}}}
-else{camera.position.x=Math.sin(elapsed*.08)*1.4;camera.lookAt(0,2,-15)}
-renderer.render(scene,camera)}
-animate();setTimeout(()=>document.getElementById('loading').classList.add('done'),700);
+const gateY=H*.47, postH=H*.27, pw=Math.max(25,W*.025), gap=W*.26;ctx.fillStyle='#4a3930';ctx.fillRect(W/2-gap/2-pw,gateY-postH,pw,postH);ctx.fillRect(W/2+gap/2,gateY-postH,pw,postH);ctx.fillRect(W/2-gap/2,gateY-postH,W/2+gap/2-(W/2-gap/2),pw*.7);ctx.fillStyle='#d6b36b';ctx.fillRect(W/2-gap*.34,gateY-postH*.78,gap*.68,34);ctx.fillStyle='#f3d58b';ctx.font='bold 14px Georgia';ctx.textAlign='center';ctx.fillText("DAVID'S VILLAGE",W/2,gateY-postH*.78+23);
+// warm lamps
+for(const x of [W/2-gap/2-pw/2,W/2+gap/2+pw/2]){const g=ctx.createRadialGradient(x,gateY-postH*.78,2,x,gateY-postH*.78,80);g.addColorStop(0,'rgba(255,206,116,.8)');g.addColorStop(1,'rgba(255,206,116,0)');ctx.fillStyle=g;ctx.fillRect(x-80,gateY-postH*.78-80,160,160);ctx.fillStyle='#e6bd72';ctx.beginPath();ctx.arc(x,gateY-postH*.78,7,0,7);ctx.fill()}
+// guard silhouette, friendly but imposing
+const gx=W/2,gy=gateY+10;ctx.fillStyle='#3f4d57';ctx.beginPath();ctx.ellipse(gx,gy-45,29,45,0,0,7);ctx.fill();ctx.fillStyle='#c99779';ctx.beginPath();ctx.arc(gx,gy-99,20,0,7);ctx.fill();ctx.fillStyle='#313b43';ctx.fillRect(gx-25,gy-124,50,14);ctx.fillRect(gx-31,gy-111,62,7);ctx.fillStyle='#273238';ctx.fillRect(gx-25,gy-5,16,55);ctx.fillRect(gx+9,gy-5,16,55);
+// village glow beyond gate
+ctx.globalAlpha=.25;ctx.fillStyle='#f0c777';for(let i=0;i<5;i++)ctx.fillRect(W/2-gap*.4+i*gap*.18,gateY-70-(i%2)*35,13,13);ctx.globalAlpha=1;
+// snow
+for(const f of flakes){f.y+=f.v*.004;if(f.y>1)f.y=0;ctx.fillStyle='rgba(244,248,246,.7)';ctx.beginPath();ctx.arc(f.x*W,f.y*H,f.s,0,7);ctx.fill()}
+if(!finished&&!dialogueShown&&elapsed>6){dialogueShown=true;dialog.classList.remove('hidden')}
+requestAnimationFrame(draw)}requestAnimationFrame(draw);setTimeout(()=>document.getElementById('loading').classList.add('done'),1200);
