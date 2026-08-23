@@ -1,1 +1,15 @@
-const modal=document.querySelector('#modal');document.querySelector('#open').onclick=()=>modal.classList.add('show');document.querySelector('#close').onclick=()=>modal.classList.remove('show');modal.onclick=e=>{if(e.target===modal)modal.classList.remove('show')};document.querySelector('#form').onsubmit=e=>{e.preventDefault();const n=document.querySelector('#name').value.trim(),t=document.querySelector('#text').value.trim();if(!n||!t)return;const d=document.createElement('div');d.className='msg';const b=document.createElement('b'),s=document.createElement('span');b.textContent=n;s.textContent=t;d.append(b,s);document.querySelector('#messages').append(d);document.querySelector('#messages').scrollTop=99999;e.target.reset()};
+const message = document.getElementById('arrivalMessage');
+const enterButton = document.getElementById('enterButton');
+const closeMessage = document.getElementById('closeMessage');
+
+enterButton.addEventListener('click', () => {
+  message.hidden = false;
+});
+
+closeMessage.addEventListener('click', () => {
+  message.hidden = true;
+});
+
+message.addEventListener('click', (event) => {
+  if (event.target === message) message.hidden = true;
+});
