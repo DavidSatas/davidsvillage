@@ -55,11 +55,11 @@ body {
 .page p { font-size:clamp(16px, 1.8vw, 19px); line-height:1.75; margin:0 0 18px; }
 .page .chapter { text-align:center; text-transform:uppercase; letter-spacing:4px; font-size:13px; color:#8a6d4e; margin-bottom:14px; }
 .page .ornament { text-align:center; font-size:24px; margin:22px 0; color:#8a6d4e; }
-.turning-page { display:none; position:absolute; z-index:10; top:12px; bottom:12px; left:50%; width:calc(50% - 9px); transform-origin:left center; background:#f7efd9; box-shadow:0 0 16px rgba(0,0,0,.25); }
-.turning-page.flip-forward { display:block; animation:flipForward .65s ease forwards; }
-.turning-page.flip-back { display:block; left:calc(50% - 9px); transform-origin:right center; animation:flipBack .65s ease forwards; }
-@keyframes flipForward { from { transform:rotateY(0); } to { transform:rotateY(-180deg); } }
-@keyframes flipBack { from { transform:rotateY(0); } to { transform:rotateY(180deg); } }
+.turning-page { display:none; position:absolute; z-index:10; top:12px; bottom:12px; left:50%; width:calc(50% - 9px); transform-origin:left center; background:#f7efd9; overflow:hidden; padding:clamp(25px, 4vw, 54px); box-shadow:0 0 16px rgba(0,0,0,.25); backface-visibility:hidden; -webkit-backface-visibility:hidden; transform-style:preserve-3d; will-change:transform; }
+.turning-page.flip-forward { display:block; animation:flipForward .65s ease-in-out forwards; }
+.turning-page.flip-back { display:block; left:50%; transform-origin:left center; animation:flipBack .65s ease-in-out forwards; }
+@keyframes flipForward { from { transform:rotateY(0deg); } to { transform:rotateY(-180deg); } }
+@keyframes flipBack { from { transform:rotateY(0deg); } to { transform:rotateY(180deg); } }
 .controls { display:flex; justify-content:center; align-items:center; gap:22px; margin-top:22px; color:#fff; text-shadow:0 2px 3px rgba(0,0,0,.45); }
 .controls button { width:52px; height:44px; border:2px solid rgba(255,255,255,.75); border-radius:8px; background:rgba(48,39,32,.7); color:white; font-size:27px; cursor:pointer; }
 .controls button:hover { background:rgba(48,39,32,.9); }
