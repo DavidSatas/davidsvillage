@@ -54,7 +54,6 @@ const pages = [
 
 const leftPage = document.getElementById('leftPage');
 const rightPage = document.getElementById('rightPage');
-const turningPage = document.getElementById('turningPage');
 const pageNumber = document.getElementById('pageNumber');
 const pageCount = document.getElementById('pageCount');
 const prevBtn = document.getElementById('prevBtn');
@@ -90,20 +89,9 @@ function turn(direction) {
   const next = current + direction;
   if (next < 0 || next >= pages.length) return;
 
-  // The page being turned is always the current right-hand page.
-  // Keeping its left edge on the spine makes both directions use the
-  // same physical hinge, so the reverse animation no longer jumps.
-  renderPage(turningPage, pages[current]);
-  turningPage.className = 'turning-page';
-  void turningPage.offsetWidth;
-  turningPage.classList.add(direction > 0 ? 'flip-forward' : 'flip-back');
-
-  turningPage.addEventListener('animationend', function handler() {
-    turningPage.removeEventListener('animationend', handler);
-    current = next;
-    turningPage.className = 'turning-page';
-    render();
-  }, { once: true });
+  // Instant page change: no flip, fade, slide, or delay.
+  current = next;
+  render();
 }
 
 prevBtn.addEventListener('click', () => turn(-1));
