@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>David's Village — Manifesto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="scene">
+    <div class="sky-glow"></div>
+    <div class="stars"></div>
+    <div class="aurora aurora-one"></div>
+    <div class="aurora aurora-two"></div>
+    <div class="mountains"></div>
+    <div class="village" aria-hidden="true">
+      <div class="hill"></div>
+      <div class="house house-a"><i></i><b></b></div>
+      <div class="house house-b"><i></i><b></b></div>
+      <div class="house house-c"><i></i><b></b></div>
+      <div class="library"><span></span><em></em></div>
+      <div class="tree tree-a"></div><div class="tree tree-b"></div><div class="tree tree-c"></div>
+      <div class="lamp lamp-a"></div><div class="lamp lamp-b"></div>
+      <div class="snow"></div>
+    </div>
+
+    <section class="book-wrap" aria-label="David's Village manifesto">
+      <div class="book" id="book">
+        <div class="book-spine"></div>
+        <div class="page left-page" id="leftPage"></div>
+        <div class="page right-page" id="rightPage"></div>
+        <div class="turning-page" id="turningPage"></div>
+      </div>
+
+      <div class="controls">
+        <button id="prevBtn" aria-label="Previous page">←</button>
+        <span><strong id="pageNumber">1</strong> / <strong id="pageCount">1</strong></span>
+        <button id="nextBtn" aria-label="Next page">→</button>
+      </div>
+      <p class="hint">Use the arrows or your keyboard ← → to turn the pages.</p>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
