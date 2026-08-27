@@ -90,7 +90,13 @@ function turn(direction) {
   const next = current + direction;
   if (next < 0 || next >= pages.length) return;
 
-  turningPage.className = 'turning-page ' + (direction > 0 ? 'flip-forward' : 'flip-back');
+  // The page being turned is always the current right-hand page.
+  // Keeping its left edge on the spine makes both directions use the
+  // same physical hinge, so the reverse animation no longer jumps.
+  renderPage(turningPage, pages[current]);
+  turningPage.className = 'turning-page';
+  void turningPage.offsetWidth;
+  turningPage.classList.add(direction > 0 ? 'flip-forward' : 'flip-back');
 
   turningPage.addEventListener('animationend', function handler() {
     turningPage.removeEventListener('animationend', handler);
