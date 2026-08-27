@@ -55,6 +55,11 @@ body {
 .page p { font-size:clamp(16px, 1.8vw, 19px); line-height:1.75; margin:0 0 18px; }
 .page .chapter { text-align:center; text-transform:uppercase; letter-spacing:4px; font-size:13px; color:#8a6d4e; margin-bottom:14px; }
 .page .ornament { text-align:center; font-size:24px; margin:22px 0; color:#8a6d4e; }
+.turning-page { display:none; position:absolute; z-index:10; top:12px; bottom:12px; left:50%; width:calc(50% - 9px); transform-origin:left center; background:#f7efd9; box-shadow:0 0 16px rgba(0,0,0,.25); }
+.turning-page.flip-forward { display:block; animation:flipForward .65s ease forwards; }
+.turning-page.flip-back { display:block; left:calc(50% - 9px); transform-origin:right center; animation:flipBack .65s ease forwards; }
+@keyframes flipForward { from { transform:rotateY(0); } to { transform:rotateY(-180deg); } }
+@keyframes flipBack { from { transform:rotateY(0); } to { transform:rotateY(180deg); } }
 .controls { display:flex; justify-content:center; align-items:center; gap:22px; margin-top:22px; color:#fff; text-shadow:0 2px 3px rgba(0,0,0,.45); }
 .controls button { width:52px; height:44px; border:2px solid rgba(255,255,255,.75); border-radius:8px; background:rgba(48,39,32,.7); color:white; font-size:27px; cursor:pointer; }
 .controls button:hover { background:rgba(48,39,32,.9); }
@@ -69,3 +74,18 @@ body {
   .right-page { display:block; }
   .page p { line-height:1.6; }
 }
+
+/* Manifesto readability: dense text-friendly page layout */
+.page { padding: clamp(22px, 3.2vw, 40px); }
+.page h1 { margin: 0 0 16px; font-size: clamp(25px, 3.2vw, 38px); line-height: 1.15; }
+.page h2 { margin: 0 0 12px; font-size: clamp(19px, 2.4vw, 27px); line-height: 1.25; }
+.page p { font-size: clamp(14px, 1.45vw, 16px); line-height: 1.55; margin: 0 0 12px; }
+.page ul, .page ol { margin: 0 0 14px; padding-left: 1.5em; }
+.page li { font-size: clamp(14px, 1.45vw, 16px); line-height: 1.5; margin-bottom: 6px; }
+.page blockquote { margin: 14px 0; padding-left: 14px; border-left: 3px solid #b89a70; font-size: clamp(14px, 1.45vw, 16px); line-height: 1.5; }
+.page .chapter { margin-bottom: 9px; font-size: 11px; letter-spacing: 3px; }
+.page .ornament { margin: 14px 0; font-size: 20px; }
+.page br { line-height: 1.2; }
+
+/* No page-turn animation: instant page replacement. */
+.turning-page { display:none !important; animation:none !important; transition:none !important; }
