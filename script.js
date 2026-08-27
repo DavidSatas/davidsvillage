@@ -54,6 +54,7 @@ const pages = [
 
 const leftPage = document.getElementById('leftPage');
 const rightPage = document.getElementById('rightPage');
+const turningPage = document.getElementById('turningPage');
 const pageNumber = document.getElementById('pageNumber');
 const pageCount = document.getElementById('pageCount');
 const prevBtn = document.getElementById('prevBtn');
@@ -88,8 +89,6 @@ function render() {
 function turn(direction) {
   const next = current + direction;
   if (next < 0 || next >= pages.length) return;
-
-  // Instant page change: no flip, fade, slide, or delay.
   current = next;
   render();
 }
